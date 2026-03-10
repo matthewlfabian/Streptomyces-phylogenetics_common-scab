@@ -1,19 +1,23 @@
-rule FastQC_before:
+rule fastqc_before:
     input:
-        "FASTQs/raw/{sample}.gz"
+        r1 = "data/raw/{sample}_1.fastq.gz",
+        r2 = "data/raw/{sample}_2.fastq.gz"
     output:
-        "results/FastQC/before/{sample}_FastQC.html"
-    conda: "../envs/fastqc.yaml"
+        html1 = "results/fastqc/before/{sample}_1_fastqc.html",
+        html2 = "results/fastqc/before/{sample}_2_fastqc.html"
     threads: 10
+    conda: "../envs/fastqc.yaml"
     shell:
-        "fastqc -t {threads} -o results/FastQC/raw/ {input}"
+        "fastqc -t {threads} -o results/fastqc/before/ {input.r1} {input.r2}"
 
-rule FastQC_after:
+rule fastqc_after:
     input:
-        "FASTQs/trimmed/{sample}.gz"
+        r1 = "data/trimmed/{sample}_1.fastq.gz",
+        r2 = "data/trimmed/{sample}_2.fastq.gz"
     output:
-        "results/FastQC/trimmed/{sample}_FastQC.html"
+        html1 = "results/fastqc/after/{sample}_1_fastqc.html",
+        html2 = "results/fastqc/after/{sample}_2_fastqc.html"
     threads: 10
     conda: "../envs/fastqc.yaml"
     shell:
-        "fastqc -t {threads} -o results/FastQC/after/ {input}"
+        "fastqc -t {threads} -o results/fastqc/after/ {input.r1} {input.r2}"
