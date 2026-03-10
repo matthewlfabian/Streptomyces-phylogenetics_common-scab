@@ -1,1 +1,7 @@
+samples:
+  - strain_A
+  - strain_B
 
+reference: "data/reference/reference.fasta"
+trimmomatic_adapters: "envs/adapters/TruSeq3-PE.fa"
+blast_db: "data/blastdb/streptomyces_db"
