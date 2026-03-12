@@ -1,3 +1,6 @@
+# Steps: FastQC & report => trimming via BBDuk => FastQC & report => SPAdes => FastANI/MLSA/BLAST
+# FastQC trimming, raw FASTQs: tested & working v9.16.3
+
 configfile: "config/config.yaml"
 
 SAMPLES = config["samples"]
