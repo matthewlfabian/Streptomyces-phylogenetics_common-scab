@@ -2,6 +2,8 @@ samples:
   - ID01-13C
   - ID01-8A
 
+read_extension: "fastq.gz"
+
 reference: "FASTQ/reference/reference.fasta"
 trimmomatic_adapters: "FASTQ/adapters/TruSeq3-PE.fa"
 blast_db: "data/blastdb/streptomyces_db"
