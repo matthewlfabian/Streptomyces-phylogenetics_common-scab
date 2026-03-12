@@ -2,7 +2,7 @@ configfile: "config/config.yaml"
 
 SAMPLES = config["samples"]
 
-include: "rules/fastqc.smk"
+include: "rules/FastQC.smk"
 
 rule all:
     input:
