@@ -1,5 +1,4 @@
 # Steps: FastQC & report => trimming via BBDuk => FastQC & report => SPAdes => FastANI/MLSA/BLAST
-# FastQC trimming, raw FASTQs: tested & working v9.16.3
 
 configfile: "config/config.yaml"
 
@@ -7,11 +6,18 @@ SAMPLES = config["samples"]
 
 include: "rules/FastQC.smk"
 include: "rules/MultiQC.smk"
+include: "rules/BBDuk.smk"
 
 rule all:
     input:
-        expand("FastQC/raw/{sample}_1_fastqc.html", sample=SAMPLES),
-        expand("FastQC/raw/{sample}_2_fastqc.html", sample=SAMPLES),
-        "MultiQC/raw/multiqc_report.html"
-#        expand("FastQC/trimmed/{sample}_1_fastqc.html", sample=SAMPLES),
-#        expand("FastQC/trimmed/{sample}_2_fastqc.html", sample=SAMPLES)
+    # Stage 1: raw FASTQ QC assessment; comment out when complete
+        #expand("FastQC/raw/{sample}_1_fastqc.html", sample=SAMPLES),
+        #expand("FastQC/raw/{sample}_2_fastqc.html", sample=SAMPLES),
+        #"MultiQC/raw/multiqc_report.html"
+    # Stage 2: trimming; uncomment to continue
+        expand(config["outdir"] + "/{sample}_clean_1.fastq.gz", sample=SAMPLES),
+        expand(config["outdir"] + "/{sample}_clean_2.fastq.gz", sample=SAMPLES),
+    # Stage 3: trimmed FASTQ QC assessment; uncomment to continue
+        expand("FastQC/trimmed/{sample}_1_fastqc.html", sample=SAMPLES),
+        expand("FastQC/trimmed/{sample}_2_fastqc.html", sample=SAMPLES),
+        "MultiQC/trimmed/multiqc_report.html",
