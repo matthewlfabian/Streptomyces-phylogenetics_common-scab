@@ -3,3 +3,4 @@ samples:
   - ID01-8A
 
 read_extension: "fastq.gz"
+outdir: "FASTQ/trimmed"
