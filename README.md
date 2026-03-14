@@ -51,7 +51,7 @@ strain/sample names from FASTQ files are identified as follows: <strain_1>_1.fas
 
 # Running the Pipeline
 
-This pipeline is designed to be run in 3 distinct stages: 1.) initial quality assessment of raw FASTQs; 
+This pipeline is designed to be run in 3 stages: 1.) initial quality assessment of raw FASTQs; 
 2.) FASTQ trimming and quality assessment of trimmed reads; & 3.) genome assembly, phylogenetics, and gene
 presence/absence. By utilizing the comment mark (#) in the Snakefile, the workflow can be run stepwise, 
 permitting the review of MultiQC reports before and after trimming, before proceeding with genome assembly & 
@@ -78,27 +78,21 @@ snakemake --dag | dot -Tpng > docs/dag.png
 
 #### Stage 1: Raw read quality assessment
 To FastQC and MultiQC on raw reads, then review the MultiQC report 
-before proceeding to trimming, "comment out" 
+before proceeding to FASTQ trimming, "comment out" (i.e., add "#") Stages 2 & 3 
+in the Snakefile & run Snakemake. Review `MultiQC/raw/multiqc_report.html` 
+before continuing.
 
-Review `MultiQC/raw/multiqc_report.html` before continuing.
+#### Stage 2: Trimming & trimmed read quality assessment
+To proceed with trimming and a subsequent MultiQC report, "uncomment" Stage 2
+in the Snakefile & run Snakemake. Review `MultiQC/trimmed/multiqc_report.html` before 
+continuing.
 
-#### Stage 2 onwards: Trimming and assembly
-Once satisfied with raw read quality, uncomment the Stage 2 targets 
-in `rule all` of the `Snakefile` to proceed with trimming:
-```python
-# STAGE 2 - uncomment after reviewing MultiQC report
-# expand("FASTQ/trimmed/{sample}_1.fastq.gz", sample=SAMPLES),
-# expand("FastQC/trimmed/{sample}_1_fastqc.html", sample=SAMPLES),
-# "MultiQC/trimmed/multiqc_report.html",
-```
-Rerun the pipeline — Snakemake will skip completed steps and only 
-run the newly uncommented targets.
+#### Stage 3: Assembly, phylogenetics, & gene presence/absence
+To proceed with assembly & analyses, "uncomment" Stage 3 in the Snakefile & run
+Snakemake. Individual steps can be "commented out" as desired, e.g., if assembly
+parameters are to be adjusted & tested before continuing with subsequent analyses.
 
-Repeat this process for each subsequent stage.
-
-
-
-## Directory Structure
+# Directory Structure
 ```
 Streptomyces-phylogenetics_common-scab/
 ├── Snakefile
