@@ -65,8 +65,15 @@ snakemake --cores 10 --use-conda
 At any stage, a "dry run" can be conducted to verify the logic of the workflow:
 
 To preview what Snakemake will run without executing anything:
+
 ```bash
 snakemake --dry-run --cores 10 --use-conda
+```
+
+To visualize the workflow structure via a directed acyclic graph (DAG):
+
+```bash
+snakemake --dag | dot -Tpng > docs/dag.png
 ```
 
 
@@ -90,11 +97,7 @@ run the newly uncommented targets.
 
 Repeat this process for each subsequent stage.
 
-### Visualize the Pipeline
-To generate a DAG image of the workflow:
-```bash
-snakemake --dag | dot -Tpng > docs/dag.png
-```
+
 
 ## Directory Structure
 ```
